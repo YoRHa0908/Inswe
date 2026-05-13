@@ -67,8 +67,10 @@ export default function LoginPage() {
       return;
     }
 
-    // Success — redirect to account page
-    router.push("/account");
+    // Success — signal the Header to re-read the session cookie, then go home
+    localStorage.setItem("inswe_auth_ts", Date.now().toString());
+    router.push("/");
+    router.refresh();
   };
 
   // ── OTP input helpers ─────────────────────────────────────────
@@ -157,6 +159,24 @@ export default function LoginPage() {
 
             <button
               type="button"
+              onClick={() => {
+                const popup = window.open(
+                  "/auth/shop-login",
+                  "ShopLogin",
+                  "width=440,height=600,left=400,top=100,resizable=yes,scrollbars=yes"
+                );
+                // Listen for success from popup
+                const handleMsg = (e: MessageEvent) => {
+                  if (e.origin !== window.location.origin) return;
+                  if (e.data?.type === "SHOP_LOGIN_SUCCESS") {
+                    window.removeEventListener("message", handleMsg);
+                    popup?.close();
+                    router.push("/");
+                    router.refresh();
+                  }
+                };
+                window.addEventListener("message", handleMsg);
+              }}
               className="mb-5 flex h-14 w-full items-center justify-center rounded-xl bg-[#6B46F5] text-[14px] font-bold text-white transition hover:opacity-90"
             >
               Continue with shop

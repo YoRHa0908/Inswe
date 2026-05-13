@@ -63,12 +63,21 @@ export async function POST(req: NextRequest) {
 
     const response = NextResponse.json({ success: true, email });
 
-    // Set session cookie — httpOnly so JS can't read it
+    // httpOnly session cookie — secure, JS cannot read it
     response.cookies.set("inswe_session", token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: "lax",
-      maxAge: 60 * 60 * 24 * 7, // 7 days
+      maxAge: 60 * 60 * 24 * 7,
+      path: "/",
+    });
+
+    // Readable cookie — JS can read this for UI display (email initial in header)
+    response.cookies.set("inswe_user", email, {
+      httpOnly: false,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax",
+      maxAge: 60 * 60 * 24 * 7,
       path: "/",
     });
 

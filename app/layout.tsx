@@ -8,6 +8,9 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "Modern Website | Next.js + Tailwind",
   description: "A modern website built with Next.js and Tailwind CSS",
+  other: {
+    "google": "notranslate",
+  },
 };
 
 export default function RootLayout({
@@ -16,8 +19,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${inter.className} antialiased`}>
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <meta name="google" content="notranslate" />
+      </head>
+      <body className={`${inter.className} antialiased`} suppressHydrationWarning>
         <CartProvider>
           {children}
         </CartProvider>

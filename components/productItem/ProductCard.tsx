@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ShoppingBag } from "lucide-react";
 import { Product } from "./ProductSection";
+import { useCart } from "@/lib/CartContext";
 
 type ProductCardProps = {
   product: Product;
@@ -14,6 +15,8 @@ type ProductCardProps = {
 export default function ProductCard({ product, view }: ProductCardProps) {
   const [hovered, setHovered] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
+  const [added, setAdded] = useState(false);
+  const { addItem } = useCart();
 
   const images = product.images ?? [product.image];
 
@@ -25,6 +28,19 @@ export default function ProductCard({ product, view }: ProductCardProps) {
   function next(e: React.MouseEvent) {
     e.preventDefault();
     setActiveIndex((i) => (i === images.length - 1 ? 0 : i + 1));
+  }
+
+  function handleAddToCart(e: React.MouseEvent) {
+    e.preventDefault();
+    e.stopPropagation();
+    addItem({
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      image: images[0],
+    });
+    setAdded(true);
+    setTimeout(() => setAdded(false), 1200);
   }
 
   return (
@@ -62,7 +78,7 @@ export default function ProductCard({ product, view }: ProductCardProps) {
           />
         ))}
 
-        {/* Hover overlay controls — only visible on hover */}
+        {/* Hover overlay controls */}
         {hovered && (
           <>
             {/* Prev arrow */}
@@ -83,15 +99,28 @@ export default function ProductCard({ product, view }: ProductCardProps) {
               →
             </button>
 
-            {/* Add to cart button — bottom right */}
+            {/* Add to cart button */}
             <button
-              onClick={(e) => e.preventDefault()}
+              onClick={handleAddToCart}
               aria-label="Add to cart"
-              className="absolute bottom-3 right-3 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-md transition hover:bg-[#f0f0f0]"
+              className={`absolute bottom-3 right-3 z-10 flex h-10 w-10 items-center justify-center rounded-full shadow-md transition-all duration-200 ${
+                added
+                  ? "scale-110 bg-[#1a1a1a]"
+                  : "bg-white hover:bg-[#f0f0f0]"
+              }`}
             >
-              <ShoppingBag size={17} strokeWidth={1.8} className="text-[#222]" />
-              <span className="absolute bottom-[6px] right-[6px] flex h-[10px] w-[10px] items-center justify-center rounded-full bg-[#1a1a1a] text-[7px] font-bold text-white">
-                +
+              <ShoppingBag
+                size={17}
+                strokeWidth={1.8}
+                className={`transition-colors duration-200 ${added ? "text-white" : "text-[#222]"}`}
+              />
+              {/* + badge — pulses when added */}
+              <span
+                className={`absolute bottom-[6px] right-[6px] flex h-[10px] w-[10px] items-center justify-center rounded-full text-[7px] font-bold text-white transition-all duration-200 ${
+                  added ? "scale-125 bg-green-500" : "bg-[#1a1a1a]"
+                }`}
+              >
+                {added ? "✓" : "+"}
               </span>
             </button>
 
@@ -101,9 +130,7 @@ export default function ProductCard({ product, view }: ProductCardProps) {
                 <span
                   key={i}
                   className={`block h-[5px] rounded-full transition-all duration-200 ${
-                    i === activeIndex
-                      ? "w-4 bg-white"
-                      : "w-[5px] bg-white/50"
+                    i === activeIndex ? "w-4 bg-white" : "w-[5px] bg-white/50"
                   }`}
                 />
               ))}
