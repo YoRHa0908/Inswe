@@ -3,6 +3,8 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { ShoppingBag, User } from "lucide-react";
+import CartDrawer from "./CartDrawer";
+import { useCart } from "@/lib/CartContext";
 
 const navLinks = [
   { label: "Home", href: "/" },
@@ -14,7 +16,9 @@ const navLinks = [
 
 export default function Header() {
   const [openAccount, setOpenAccount] = useState(false);
+  const [cartOpen, setCartOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
+  const { totalCount } = useCart();
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -103,7 +107,13 @@ export default function Header() {
                   </button>
 
                   {/* OTHER OPTIONS */}
-                  <button className="flex h-[45px] w-full items-center justify-center rounded-[16px] bg-black text-[15px] font-medium text-white transition hover:opacity-90">
+                  <button
+                    onClick={() => {
+                      window.location.href = "/auth/login";
+                      setOpenAccount(false);
+                    }}
+                    className="flex h-[45px] w-full items-center justify-center rounded-[16px] bg-black text-[15px] font-medium text-white transition hover:opacity-90"
+                  >
                     Other sign in options
                   </button>
                 </div>
@@ -133,15 +143,23 @@ export default function Header() {
           </div>
 
           {/* CART */}
-          <button className="relative transition hover:opacity-60">
+          <button
+            onClick={() => setCartOpen(true)}
+            className="relative transition hover:opacity-60"
+            aria-label="Open cart"
+          >
             <ShoppingBag size={24} strokeWidth={1.8} />
-
-            <span className="absolute -right-2 -top-2 flex h-5 w-5 items-center justify-center rounded-full bg-black text-[10px] text-white">
-              10
-            </span>
+            {totalCount > 0 && (
+              <span className="absolute -right-2 -top-2 flex h-5 w-5 items-center justify-center rounded-full bg-black text-[10px] text-white">
+                {totalCount}
+              </span>
+            )}
           </button>
         </div>
       </div>
+
+      {/* CART DRAWER */}
+      <CartDrawer open={cartOpen} onClose={() => setCartOpen(false)} />
     </header>
   );
 }

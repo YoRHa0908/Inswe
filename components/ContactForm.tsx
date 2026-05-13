@@ -1,141 +1,153 @@
 "use client";
 
-import { useState } from 'react';
+import { useState } from "react";
 
 export default function ContactForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    body: ''
+    name: "",
+    email: "",
+    phone: "",
+    body: "",
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
-    // In a real application, you would send this data to your backend
-    // For now, we'll just log it and show a success message
-    console.log('Form submitted:', formData);
-    
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    
-    alert('Thank you for your message! We\'ll get back to you soon.');
+    await new Promise((resolve) => setTimeout(resolve, 900));
     setIsSubmitting(false);
-    
-    // Reset form
-    setFormData({
-      name: '',
-      email: '',
-      phone: '',
-      body: ''
-    });
+    setSubmitted(true);
+    setFormData({ name: "", email: "", phone: "", body: "" });
   };
 
+  if (submitted) {
+    return (
+      <div className="flex flex-col items-center gap-3 py-10 text-center">
+        <div className="flex h-12 w-12 items-center justify-center rounded-full bg-black">
+          <svg width="22" height="22" viewBox="0 0 20 20" fill="none">
+            <path
+              d="M4.75 10.75L7.75 14.25L15.25 5.75"
+              stroke="white"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        </div>
+        <p className="text-[16px] font-medium text-[#1a1a1a]">Message sent!</p>
+        <p className="text-[14px] text-[#888]">
+          Thanks for reaching out. We&apos;ll be in touch soon.
+        </p>
+        <button
+          onClick={() => setSubmitted(false)}
+          className="mt-4 text-[13px] text-[#555] underline underline-offset-2 hover:text-black"
+        >
+          Send another message
+        </button>
+      </div>
+    );
+  }
+
   return (
-    <div className="contact-form spacing-style size-style" 
-      style={{
-        paddingBlockStart: '0px',
-        paddingBlockEnd: '0px',
-        paddingInlineStart: '0px',
-        paddingInlineEnd: '0px',
-        width: '50%',
-        height: 'auto'
-      }}
-    >
-      <form 
-        method="post" 
-        onSubmit={handleSubmit}
-        className="contact-form__form"
-        style={{ width: '100%' }}
-      >
-        <div className="contact-form__form-row">
-          <label className="visually-hidden" htmlFor="ContactForm-name">
+    <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+      {/* Name + Email */}
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+        <div className="flex flex-col gap-1.5">
+          <label htmlFor="ContactForm-name" className="text-[13px] font-medium text-[#444]">
             Name
           </label>
           <input
-            type="text"
             id="ContactForm-name"
-            className="contact-form__input"
-            autoComplete="name"
+            type="text"
             name="name"
+            autoComplete="name"
+            placeholder="Your name"
             value={formData.name}
             onChange={handleChange}
-            placeholder="Name"
             required
-          />
-          
-          <label className="visually-hidden" htmlFor="ContactForm-email">
-            Email<span aria-hidden="true">*</span>
-          </label>
-          <input
-            type="email"
-            id="ContactForm-email"
-            className="contact-form__input"
-            autoComplete="email"
-            name="email"
-            spellCheck="false"
-            autoCapitalize="off"
-            value={formData.email}
-            onChange={handleChange}
-            aria-required="true"
-            placeholder="Email"
-            required
+            className="h-[48px] w-full rounded-xl border border-[#e0e0e0] bg-[#fafafa] px-4 text-[14px] text-[#222] outline-none transition placeholder:text-[#bbb] focus:border-[#1a1a1a] focus:bg-white"
           />
         </div>
-        
-        <label className="visually-hidden" htmlFor="ContactForm-phone">
+
+        <div className="flex flex-col gap-1.5">
+          <label htmlFor="ContactForm-email" className="text-[13px] font-medium text-[#444]">
+            Email <span className="text-[#e55]">*</span>
+          </label>
+          <input
+            id="ContactForm-email"
+            type="email"
+            name="email"
+            autoComplete="email"
+            placeholder="you@example.com"
+            value={formData.email}
+            onChange={handleChange}
+            required
+            className="h-[48px] w-full rounded-xl border border-[#e0e0e0] bg-[#fafafa] px-4 text-[14px] text-[#222] outline-none transition placeholder:text-[#bbb] focus:border-[#1a1a1a] focus:bg-white"
+          />
+        </div>
+      </div>
+
+      {/* Phone */}
+      <div className="flex flex-col gap-1.5">
+        <label htmlFor="ContactForm-phone" className="text-[13px] font-medium text-[#444]">
           Phone
         </label>
         <input
-          type="tel"
           id="ContactForm-phone"
-          className="contact-form__input"
-          autoComplete="tel"
+          type="tel"
           name="phone"
-          pattern="[0-9\-]*"
+          autoComplete="tel"
+          placeholder="+44 000 000 0000"
+          pattern="[0-9\-\+\s]*"
           value={formData.phone}
           onChange={handleChange}
-          placeholder="Phone"
+          className="h-[48px] w-full rounded-xl border border-[#e0e0e0] bg-[#fafafa] px-4 text-[14px] text-[#222] outline-none transition placeholder:text-[#bbb] focus:border-[#1a1a1a] focus:bg-white"
         />
-        
-        <label className="visually-hidden" htmlFor="ContactForm-body">
-          Comment
+      </div>
+
+      {/* Comment */}
+      <div className="flex flex-col gap-1.5">
+        <label htmlFor="ContactForm-body" className="text-[13px] font-medium text-[#444]">
+          Comment <span className="text-[#e55]">*</span>
         </label>
         <textarea
-          rows={10}
           id="ContactForm-body"
-          className="contact-form__input contact-form__input--textarea"
           name="body"
+          rows={7}
+          placeholder="How can we help you?"
           value={formData.body}
           onChange={handleChange}
-          placeholder="Comment"
           required
+          className="w-full resize-none rounded-xl border border-[#e0e0e0] bg-[#fafafa] px-4 py-3.5 text-[14px] text-[#222] outline-none transition placeholder:text-[#bbb] focus:border-[#1a1a1a] focus:bg-white"
         />
-        
-        <button
-          type="submit"
-          className="button submit-button size-style button btn-primary"
-          disabled={isSubmitting}
-          style={{
-            width: 'fit-content',
-            height: 'auto',
-            marginTop: '20px'
-          }}
-        >
-          {isSubmitting ? 'Submitting...' : 'Submit'}
-        </button>
-      </form>
-    </div>
+      </div>
+
+      {/* Submit */}
+      <button
+        type="submit"
+        disabled={isSubmitting}
+        className="mt-1 flex h-[50px] w-full items-center justify-center rounded-xl bg-[#1a1a1a] text-[14px] font-medium text-white transition hover:bg-[#333] disabled:opacity-60"
+      >
+        {isSubmitting ? (
+          <span className="flex items-center gap-2">
+            <svg className="animate-spin" width="16" height="16" viewBox="0 0 24 24" fill="none">
+              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="white" strokeWidth="3" />
+              <path className="opacity-75" fill="white" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z" />
+            </svg>
+            Sending…
+          </span>
+        ) : (
+          "Send message"
+        )}
+      </button>
+    </form>
   );
 }
