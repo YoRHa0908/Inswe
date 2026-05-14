@@ -71,15 +71,15 @@ export default function CheckoutPage() {
     <div className="flex min-h-screen flex-col bg-white">
 
       {/* ── HEADER ── */}
-      <header className="border-b border-[#e5e5e5] bg-white">
+      <header className="fixed top-0 z-50 w-full border-b border-[#e5e5e5] bg-white dark:border-[#2a2a2a] dark:bg-[#111]">
         <div className="mx-auto flex h-14 max-w-[1100px] items-center justify-between px-6">
           {/* Logo — left aligned */}
-          <Link href="/" className="text-[17px] font-semibold tracking-[-0.03em] text-[#1a1a1a]">
+          <Link href="/" className="text-[17px] font-semibold tracking-[-0.03em] text-[#1a1a1a] dark:text-white">
             Inswè
           </Link>
 
           {/* Cart icon — links back to cart page */}
-          <Link href="/cart" aria-label="Back to cart" className="flex h-8 w-8 items-center justify-center text-[#555] transition hover:text-[#1a1a1a]">
+          <Link href="/cart" aria-label="Back to cart" className="flex h-8 w-8 items-center justify-center text-[#555] transition hover:text-[#1a1a1a] dark:text-[#aaa] dark:hover:text-white">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
               <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
               <line x1="3" y1="6" x2="21" y2="6" />
@@ -88,6 +88,8 @@ export default function CheckoutPage() {
           </Link>
         </div>
       </header>
+      {/* Spacer below fixed header */}
+      <div className="h-14" />
 
       {/* ── BODY ── */}
       <div className="mx-auto flex w-full max-w-[1100px] flex-1 gap-0">

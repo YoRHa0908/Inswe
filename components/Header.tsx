@@ -97,23 +97,24 @@ export default function Header() {
   };
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-[#e5e5e5] bg-[#f5f5f5]">
+    <>
+    <header className="fixed top-0 z-50 w-full border-b border-[#e5e5e5] bg-[#f5f5f5] dark:border-[#2a2a2a] dark:bg-[#111]">
       <div className="mx-auto flex h-[72px] w-full max-w-[1920px] items-center justify-between px-6 lg:px-10">
 
         {/* LEFT NAV */}
         <nav className="hidden items-center gap-7 md:flex">
           {navLinks.map((link) => (
-            <Link key={link.label} href={link.href} className="text-[14px] font-normal tracking-[-0.02em] text-[#2b2b2b] transition hover:opacity-60">
+            <Link key={link.label} href={link.href} className="text-[14px] font-normal tracking-[-0.02em] text-[#2b2b2b] transition hover:opacity-60 dark:text-[#d0d0d0] dark:hover:opacity-80">
               {link.label}
             </Link>
           ))}
         </nav>
 
         {/* MOBILE */}
-        <button className="block md:hidden">Menu</button>
+        <button className="block text-[#2b2b2b] dark:text-[#d0d0d0] md:hidden">Menu</button>
 
         {/* LOGO */}
-        <Link href="/" className="absolute left-1/2 -translate-x-1/2 text-[16px] font-semibold tracking-[-0.04em]">
+        <Link href="/" className="absolute left-1/2 -translate-x-1/2 text-[16px] font-semibold tracking-[-0.04em] text-[#1a1a1a] dark:text-white">
           Inswè
         </Link>
 
@@ -123,15 +124,15 @@ export default function Header() {
           {/* ACCOUNT */}
           <div className="relative" ref={dropdownRef}>
 
-            {/* Avatar button — shows initial when signed in, user icon when not */}
+            {/* Avatar button */}
             <button
               type="button"
               aria-label="Account"
               onClick={() => setOpenAccount((prev) => !prev)}
-              className="transition hover:opacity-80"
+              className="text-[#1a1a1a] transition hover:opacity-80 dark:text-white"
             >
               {sessionEmail ? (
-                <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[#1a1a1a] text-[15px] font-semibold text-white">
+                <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[#1a1a1a] text-[15px] font-semibold text-white dark:bg-white dark:text-[#1a1a1a]">
                   {initial}
                 </div>
               ) : (
@@ -141,13 +142,13 @@ export default function Header() {
 
             {/* DROPDOWN */}
             {openAccount && (
-              <div className="absolute right-0 top-[48px] w-[320px] rounded-[20px] border border-[#e8e8e8] bg-white p-5 shadow-xl">
+              <div className="absolute right-0 top-[48px] w-[320px] rounded-[20px] border border-[#e8e8e8] bg-white p-5 shadow-xl dark:border-[#2a2a2a] dark:bg-[#1a1a1a]">
 
                 {sessionEmail ? (
                   /* ── SIGNED IN STATE ── */
                   <>
                     <div className="mb-5">
-                      <h3 className="text-[20px] font-bold tracking-[-0.02em] text-[#1a1a1a]">
+                      <h3 className="text-[20px] font-bold tracking-[-0.02em] text-[#1a1a1a] dark:text-white">
                         Account
                       </h3>
                       <p className="mt-1 text-[14px] text-[#888]">{sessionEmail}</p>
@@ -157,7 +158,7 @@ export default function Header() {
                       <Link
                         href="/account"
                         onClick={() => setOpenAccount(false)}
-                        className="flex h-[52px] flex-1 items-center justify-center gap-2 rounded-[16px] bg-[#f4f4f4] text-[15px] text-[#222] transition hover:bg-[#ececec]"
+                        className="flex h-[52px] flex-1 items-center justify-center gap-2 rounded-[16px] bg-[#f4f4f4] text-[15px] text-[#222] transition hover:bg-[#ececec] dark:bg-[#2a2a2a] dark:text-white dark:hover:bg-[#333]"
                       >
                         <ShoppingBag size={17} strokeWidth={1.8} />
                         Orders
@@ -165,7 +166,7 @@ export default function Header() {
                       <Link
                         href="/account/addresses"
                         onClick={() => setOpenAccount(false)}
-                        className="flex h-[52px] flex-1 items-center justify-center gap-2 rounded-[16px] bg-[#f4f4f4] text-[15px] text-[#222] transition hover:bg-[#ececec]"
+                        className="flex h-[52px] flex-1 items-center justify-center gap-2 rounded-[16px] bg-[#f4f4f4] text-[15px] text-[#222] transition hover:bg-[#ececec] dark:bg-[#2a2a2a] dark:text-white dark:hover:bg-[#333]"
                       >
                         <User size={17} strokeWidth={1.8} />
                         Profile
@@ -174,7 +175,7 @@ export default function Header() {
 
                     <button
                       onClick={handleSignOut}
-                      className="mt-4 w-full text-center text-[13px] text-[#888] transition hover:text-[#1a1a1a]"
+                      className="mt-4 w-full text-center text-[13px] text-[#888] transition hover:text-[#1a1a1a] dark:hover:text-white"
                     >
                       Sign out
                     </button>
@@ -183,7 +184,7 @@ export default function Header() {
                   /* ── SIGNED OUT STATE ── */
                   <>
                     <div className="mb-5">
-                      <h3 className="text-[18px] font-medium tracking-[-0.03em] text-[#1f1f1f]">
+                      <h3 className="text-[18px] font-medium tracking-[-0.03em] text-[#1f1f1f] dark:text-white">
                         Account
                       </h3>
                     </div>
@@ -191,11 +192,7 @@ export default function Header() {
                     <div className="flex flex-col gap-3">
                       <button
                         onClick={() => {
-                          window.open(
-                            "/auth/shop-login",
-                            "ShopLogin",
-                            "width=440,height=600,left=400,top=100,resizable=yes,scrollbars=yes"
-                          );
+                          window.open("/auth/shop-login", "ShopLogin", "width=440,height=600,left=400,top=100,resizable=yes,scrollbars=yes");
                           setOpenAccount(false);
                         }}
                         className="flex h-[52px] w-full items-center justify-center rounded-[16px] bg-[#5A31F4] text-[15px] font-medium text-white transition hover:opacity-90"
@@ -204,18 +201,18 @@ export default function Header() {
                       </button>
                       <button
                         onClick={() => { window.location.href = "/auth/login"; setOpenAccount(false); }}
-                        className="flex h-[45px] w-full items-center justify-center rounded-[16px] bg-black text-[15px] font-medium text-white transition hover:opacity-90"
+                        className="flex h-[45px] w-full items-center justify-center rounded-[16px] bg-[#1a1a1a] text-[15px] font-medium text-white transition hover:opacity-90 dark:bg-white dark:text-[#1a1a1a]"
                       >
                         Other sign in options
                       </button>
                     </div>
 
                     <div className="mt-5 flex gap-3">
-                      <Link href="/account" className="flex h-[45px] flex-1 items-center justify-center gap-2 rounded-[16px] bg-[#f4f4f4] text-[15px] text-[#222] transition hover:bg-[#ececec]">
+                      <Link href="/account" className="flex h-[45px] flex-1 items-center justify-center gap-2 rounded-[16px] bg-[#f4f4f4] text-[15px] text-[#222] transition hover:bg-[#ececec] dark:bg-[#2a2a2a] dark:text-white dark:hover:bg-[#333]">
                         <ShoppingBag size={17} strokeWidth={1.8} />
                         Orders
                       </Link>
-                      <Link href="/account/addresses" className="flex h-[45px] flex-1 items-center justify-center gap-2 rounded-[16px] bg-[#f4f4f4] text-[15px] text-[#222] transition hover:bg-[#ececec]">
+                      <Link href="/account/addresses" className="flex h-[45px] flex-1 items-center justify-center gap-2 rounded-[16px] bg-[#f4f4f4] text-[15px] text-[#222] transition hover:bg-[#ececec] dark:bg-[#2a2a2a] dark:text-white dark:hover:bg-[#333]">
                         <User size={17} strokeWidth={1.8} />
                         Profile
                       </Link>
@@ -227,10 +224,10 @@ export default function Header() {
           </div>
 
           {/* CART */}
-          <button onClick={() => setCartOpen(true)} className="relative transition hover:opacity-60" aria-label="Open cart">
+          <button onClick={() => setCartOpen(true)} className="relative text-[#1a1a1a] transition hover:opacity-60 dark:text-white" aria-label="Open cart">
             <ShoppingBag size={24} strokeWidth={1.8} />
             {totalCount > 0 && (
-              <span className="absolute -right-2 -top-2 flex h-5 w-5 items-center justify-center rounded-full bg-black text-[10px] text-white">
+              <span className="absolute -right-2 -top-2 flex h-5 w-5 items-center justify-center rounded-full bg-[#1a1a1a] text-[10px] text-white dark:bg-white dark:text-[#1a1a1a]">
                 {totalCount}
               </span>
             )}
@@ -241,5 +238,8 @@ export default function Header() {
       {/* CART DRAWER */}
       <CartDrawer open={cartOpen} onClose={() => setCartOpen(false)} />
     </header>
+    {/* Spacer so content starts below the fixed header */}
+    <div className="h-[72px]" />
+    </>
   );
 }
