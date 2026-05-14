@@ -6,7 +6,6 @@ import { useRouter } from "next/navigation";
 import AccountHeader from "@/components/AccountHeader";
 import { Pencil, X } from "lucide-react";
 import { useUserStore, SavedAddress } from "@/lib/useUserStore";
-import { jwtDecode } from "jwt-decode";
 
 type AddrForm = Omit<SavedAddress, "id">;
 
@@ -50,16 +49,22 @@ const countryCodeMap: Record<string, string> = {
 export default function ProfilePage() {
   const router = useRouter();
 
-  // Read email from JWT session cookie (client-side)
+  // Always start with empty string on both server and client to avoid hydration mismatch.
+  // Read the cookie only after mount (client-side only).
   const [email, setEmail] = useState("");
+  const [mounted, setMounted] = useState(false);
+
   useEffect(() => {
-    try {
-      const match = document.cookie.match(/inswe_session=([^;]+)/);
-      if (match) {
-        const payload = jwtDecode<{ email: string }>(match[1]);
-        if (payload.email) setEmail(payload.email);
-      }
-    } catch {}
+    const read = () => {
+      try {
+        const match = document.cookie.match(/(?:^|;\s*)inswe_user=([^;]+)/);
+        if (match) setEmail(decodeURIComponent(match[1]));
+      } catch {}
+    };
+    read();
+    setMounted(true);
+    window.addEventListener("focus", read);
+    return () => window.removeEventListener("focus", read);
   }, []);
 
   const { profile, saveName, addAddress, updateAddress } = useUserStore(email);
@@ -198,7 +203,9 @@ export default function ProfilePage() {
           <div className="mx-5 h-px bg-[#f0f0f0]" />
           <div className="px-5 py-[14px]">
             <p className="mb-1 text-[13px] text-[#999]">Email</p>
-            <p className="text-[13px] text-[#1a1a1a]">{email || "—"}</p>
+            <p className="text-[13px] text-[#1a1a1a]" suppressHydrationWarning>
+              {mounted ? (email || "—") : "—"}
+            </p>
           </div>
         </div>
 

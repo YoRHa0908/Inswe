@@ -1,13 +1,15 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { Suspense, useState, useRef } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 type Step = "email" | "otp";
 
-export default function LoginPage() {
+function LoginForm() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const redirectTo = searchParams.get("redirect") ?? "/";
   const [step, setStep] = useState<Step>("email");
   const [email, setEmail] = useState("");
   const [otp, setOtp] = useState(["", "", "", "", "", ""]);
@@ -67,9 +69,9 @@ export default function LoginPage() {
       return;
     }
 
-    // Success — signal the Header to re-read the session cookie, then go home
+    // Success — signal the Header to re-read the session cookie, then redirect
     localStorage.setItem("inswe_auth_ts", Date.now().toString());
-    router.push("/");
+    router.push(redirectTo);
     router.refresh();
   };
 
@@ -291,5 +293,13 @@ export default function LoginPage() {
       </div>
 
     </div>
+  );
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense>
+      <LoginForm />
+    </Suspense>
   );
 }

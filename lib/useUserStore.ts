@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 export type SavedAddress = {
   id: string;
@@ -32,28 +32,40 @@ function storageKey(email: string) {
 
 export function useUserStore(email: string) {
   const [profile, setProfile] = useState<UserProfile>(defaultProfile);
-  const [hydrated, setHydrated] = useState(false);
+  // loadedEmail tracks which email we've successfully loaded data for.
+  // We only persist when loadedEmail === email, preventing saves before load.
+  const loadedEmailRef = useRef<string>("");
 
-  // Load from localStorage on mount / email change
+  // ── LOAD: whenever email becomes available or changes ──────────────────────
   useEffect(() => {
     if (!email) return;
+
+    // Reset the loaded marker so persist won't fire until load completes
+    loadedEmailRef.current = "";
+
     try {
       const stored = localStorage.getItem(storageKey(email));
-      if (stored) setProfile(JSON.parse(stored));
-      else setProfile(defaultProfile);
+      if (stored) {
+        setProfile(JSON.parse(stored));
+      } else {
+        setProfile(defaultProfile);
+      }
     } catch {
       setProfile(defaultProfile);
     }
-    setHydrated(true);
+
+    // Mark this email as loaded — persist effect can now safely save
+    loadedEmailRef.current = email;
   }, [email]);
 
-  // Persist whenever profile changes
+  // ── PERSIST: only when we've loaded for this exact email ──────────────────
   useEffect(() => {
-    if (!hydrated || !email) return;
+    // Guard: only save if we've loaded data for the current email
+    if (!email || loadedEmailRef.current !== email) return;
     try {
       localStorage.setItem(storageKey(email), JSON.stringify(profile));
     } catch {}
-  }, [profile, hydrated, email]);
+  }, [profile, email]);
 
   const saveName = (firstName: string, lastName: string) => {
     setProfile((prev) => ({ ...prev, firstName, lastName }));
@@ -62,15 +74,13 @@ export function useUserStore(email: string) {
   const addAddress = (addr: Omit<SavedAddress, "id">) => {
     const newAddr: SavedAddress = { ...addr, id: Date.now().toString() };
     setProfile((prev) => {
-      const updated = addr.isDefault
-        ? prev.addresses.map((a) => ({ ...a, isDefault: false }))
-        : prev.addresses.length === 0
-        ? []
-        : prev.addresses;
       const isFirst = prev.addresses.length === 0;
+      const cleared = addr.isDefault
+        ? prev.addresses.map((a) => ({ ...a, isDefault: false }))
+        : prev.addresses;
       return {
         ...prev,
-        addresses: [...updated, { ...newAddr, isDefault: isFirst || addr.isDefault }],
+        addresses: [...cleared, { ...newAddr, isDefault: isFirst || addr.isDefault }],
       };
     });
   };
