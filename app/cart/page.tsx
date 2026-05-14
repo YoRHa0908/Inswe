@@ -169,11 +169,9 @@ export default function CartPage() {
                   <span className="italic text-[#003087]">Pay</span>
                   <span className="italic text-[#009cde]">Pal</span>
                 </button>
-                <button className="flex h-11 w-full items-center justify-center gap-1.5 rounded-full bg-[#1a1a1a] text-[13px] font-medium text-white transition hover:bg-[#333]">
-                  <svg viewBox="0 0 24 10" width="24" height="10" fill="none">
-                    <text x="0" y="9" fontSize="9" fontWeight="600" fill="#4285F4">G</text>
-                  </svg>
-                  <span className="text-[13px] font-medium text-white">Pay</span>
+                <button className="flex h-11 w-full items-center justify-center gap-0.5 rounded-full bg-[#1a1a1a] transition hover:bg-[#333]">
+                  <span className="text-[13px] font-bold text-[#4285F4]">G</span>
+                  <span className="text-[13px] font-bold text-white"> Pay</span>
                 </button>
               </div>
             </div>

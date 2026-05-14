@@ -146,6 +146,13 @@ export default function Header() {
                 {sessionEmail ? (
                   /* ── SIGNED IN STATE ── */
                   <>
+                    <div className="mb-5">
+                      <h3 className="text-[20px] font-bold tracking-[-0.02em] text-[#1a1a1a]">
+                        Account
+                      </h3>
+                      <p className="mt-1 text-[14px] text-[#888]">{sessionEmail}</p>
+                    </div>
+
                     <div className="flex gap-3">
                       <Link
                         href="/account"

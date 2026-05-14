@@ -69,11 +69,13 @@ export default function CheckoutPage() {
       {/* ── HEADER ── */}
       <header className="border-b border-[#e5e5e5] bg-white">
         <div className="mx-auto flex h-14 max-w-[1100px] items-center justify-between px-6">
-          <div className="w-8" />
+          {/* Logo — left aligned */}
           <Link href="/" className="text-[17px] font-semibold tracking-[-0.03em] text-[#1a1a1a]">
             Inswè
           </Link>
-          <Link href="/cart" aria-label="Back to cart" className="text-[#555] transition hover:text-[#1a1a1a]">
+
+          {/* Cart icon — links back to cart page */}
+          <Link href="/cart" aria-label="Back to cart" className="flex h-8 w-8 items-center justify-center text-[#555] transition hover:text-[#1a1a1a]">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
               <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
               <line x1="3" y1="6" x2="21" y2="6" />
@@ -90,20 +92,21 @@ export default function CheckoutPage() {
         <div className="flex-1 px-6 py-8 pr-12">
 
           {/* Express checkout */}
-          <p className="mb-3 text-center text-[12px] text-[#aaa]">Express checkout</p>
+          <p className="mb-3 text-center text-[12px] text-[#888]">Express checkout</p>
           <div className="mb-4 flex gap-2">
-            <button className="flex h-11 flex-1 items-center justify-center rounded-lg bg-[#5A31F4] text-[14px] font-bold text-white transition hover:opacity-90">
+            {/* Shop Pay */}
+            <button className="flex h-11 flex-1 items-center justify-center rounded-lg bg-[#5A31F4] text-[15px] font-bold text-white transition hover:opacity-90">
               shop
             </button>
-            <button className="flex h-11 flex-1 items-center justify-center rounded-lg bg-[#FFC439] text-[14px] font-bold transition hover:opacity-90">
-              <span className="italic text-[#003087]">Pay</span>
-              <span className="italic text-[#009cde]">Pal</span>
+            {/* PayPal */}
+            <button className="flex h-11 flex-1 items-center justify-center rounded-lg bg-[#FFC439] transition hover:opacity-90">
+              <span className="text-[15px] font-bold italic text-[#003087]">Pay</span>
+              <span className="text-[15px] font-bold italic text-[#009cde]">Pal</span>
             </button>
-            <button className="flex h-11 flex-1 items-center justify-center rounded-lg bg-[#1a1a1a] text-[14px] font-medium text-white transition hover:bg-[#333]">
-              <svg viewBox="0 0 50 20" width="50" height="20">
-                <text x="0" y="15" fontSize="12" fontWeight="600" fill="#4285F4">G</text>
-                <text x="11" y="15" fontSize="12" fontWeight="500" fill="white"> Pay</text>
-              </svg>
+            {/* Google Pay */}
+            <button className="flex h-11 flex-1 items-center justify-center gap-0.5 rounded-lg bg-[#1a1a1a] transition hover:bg-[#333]">
+              <span className="text-[15px] font-bold text-[#4285F4]">G</span>
+              <span className="text-[15px] font-bold text-white"> Pay</span>
             </button>
           </div>
 
@@ -188,56 +191,77 @@ export default function CheckoutPage() {
           </div>
 
           {/* Payment */}
-          <h2 className="mb-1 text-[15px] font-semibold text-[#1a1a1a]">Payment</h2>
-          <p className="mb-3 text-[12px] text-[#aaa]">All transactions are secure and encrypted.</p>
+          <h2 className="mb-1 text-[16px] font-bold text-[#1a1a1a]">Payment</h2>
+          <p className="mb-3 text-[13px] text-[#888]">All transactions are secure and encrypted.</p>
 
-          <div className="mb-5 overflow-hidden rounded-lg border border-[#d0d0d0]">
+          <div className="mb-5 overflow-hidden rounded-lg border-2 border-[#2563EB]">
 
             {/* ── Credit card row ── */}
             <div
               className={`flex cursor-pointer items-center justify-between px-4 py-3 ${
-                form.payment === "card" ? "border-b border-[#2563EB] bg-[#f0f5ff]" : "border-b border-[#e5e5e5] bg-white"
+                form.payment === "card" ? "bg-[#f0f5ff]" : "bg-white"
               }`}
               onClick={() => set("payment", "card")}
             >
-              <label className="flex cursor-pointer items-center gap-2">
-                <input type="radio" name="payment" checked={form.payment === "card"} onChange={() => set("payment", "card")} className="accent-[#2563EB]" />
-                <span className="text-[13px] text-[#1a1a1a]">Credit card</span>
+              <label className="flex cursor-pointer items-center gap-2.5">
+                <input type="radio" name="payment" checked={form.payment === "card"} onChange={() => set("payment", "card")} className="h-4 w-4 accent-[#2563EB]" />
+                <span className="text-[14px] font-medium text-[#1a1a1a]">Credit card</span>
               </label>
               <div className="flex items-center gap-1.5">
-                <div className="flex h-5 w-8 items-center justify-center rounded border border-[#e5e5e5] bg-white text-[8px] font-bold text-[#1a1a8c]">VISA</div>
-                <div className="flex h-5 w-8 items-center justify-center rounded border border-[#e5e5e5] bg-white">
+                {/* VISA */}
+                <div className="flex h-6 w-10 items-center justify-center rounded border border-[#e5e5e5] bg-white text-[9px] font-bold tracking-wide text-[#1a1a8c]">VISA</div>
+                {/* Mastercard 1 */}
+                <div className="flex h-6 w-10 items-center justify-center rounded border border-[#e5e5e5] bg-white">
                   <div className="flex">
-                    <div className="h-3.5 w-3.5 rounded-full bg-[#eb001b]" />
-                    <div className="-ml-1.5 h-3.5 w-3.5 rounded-full bg-[#f79e1b]" />
+                    <div className="h-4 w-4 rounded-full bg-[#eb001b]" />
+                    <div className="-ml-2 h-4 w-4 rounded-full bg-[#f79e1b] opacity-90" />
                   </div>
                 </div>
-                <div className="flex h-5 w-8 items-center justify-center rounded border border-[#e5e5e5] bg-white">
+                {/* Mastercard 2 */}
+                <div className="flex h-6 w-10 items-center justify-center rounded border border-[#e5e5e5] bg-white">
                   <div className="flex">
-                    <div className="h-3.5 w-3.5 rounded-full bg-[#ff5f00]" />
-                    <div className="-ml-1.5 h-3.5 w-3.5 rounded-full bg-[#eb001b]" />
+                    <div className="h-4 w-4 rounded-full bg-[#ff5f00]" />
+                    <div className="-ml-2 h-4 w-4 rounded-full bg-[#eb001b] opacity-90" />
                   </div>
                 </div>
-                <div className="flex h-5 w-7 items-center justify-center rounded border border-[#e5e5e5] bg-white text-[9px] text-[#555]">+5</div>
+                {/* +5 */}
+                <div className="flex h-6 w-8 items-center justify-center rounded border border-[#e5e5e5] bg-white text-[10px] font-medium text-[#555]">+5</div>
               </div>
             </div>
 
-            {/* Card fields — only when card selected */}
+            {/* Card fields */}
             {form.payment === "card" && (
-              <div className="bg-[#f0f5ff] px-4 pb-4 pt-3">
+              <div className="bg-[#f5f7fa] px-4 pb-4 pt-3">
                 {clientSecret ? (
-                  <Elements
-                    stripe={stripePromise}
-                    options={{
-                      clientSecret,
-                      appearance: { theme: "stripe" },
-                    }}
-                  >
+                  <Elements stripe={stripePromise} options={{ clientSecret, appearance: { theme: "stripe" } }}>
                     <StripePaymentForm onSuccess={() => {}} />
                   </Elements>
                 ) : (
-                  <div className="py-6 text-center text-[13px] text-[#aaa]">
-                    {subtotal > 0 ? "Loading payment form…" : "Add items to your cart to proceed."}
+                  <div className="flex flex-col gap-2">
+                    {/* Card number */}
+                    <div className="relative">
+                      <input type="text" placeholder="Card number" value={form.cardNumber} onChange={(e) => set("cardNumber", e.target.value)} className="h-12 w-full rounded-lg border border-[#d0d0d0] bg-white px-3 text-[13px] text-[#222] outline-none placeholder:text-[#bbb] focus:border-[#2563EB]" />
+                      <svg className="absolute right-3 top-1/2 -translate-y-1/2 text-[#aaa]" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+                        <rect x="3" y="11" width="18" height="11" rx="2" /><path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                      </svg>
+                    </div>
+                    {/* Expiry + CVV */}
+                    <div className="grid grid-cols-2 gap-2">
+                      <input type="text" placeholder="Expiration date (MM / YY)" value={form.expiry} onChange={(e) => set("expiry", e.target.value)} className="h-12 rounded-lg border border-[#d0d0d0] bg-white px-3 text-[13px] text-[#222] outline-none placeholder:text-[#bbb] focus:border-[#2563EB]" />
+                      <div className="relative">
+                        <input type="text" placeholder="Security code" value={form.cvv} onChange={(e) => set("cvv", e.target.value)} className="h-12 w-full rounded-lg border border-[#d0d0d0] bg-white px-3 text-[13px] text-[#222] outline-none placeholder:text-[#bbb] focus:border-[#2563EB]" />
+                        <svg className="absolute right-3 top-1/2 -translate-y-1/2 text-[#aaa]" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+                          <circle cx="12" cy="12" r="10" /><path d="M12 8v4M12 16h.01" />
+                        </svg>
+                      </div>
+                    </div>
+                    {/* Name on card */}
+                    <input type="text" placeholder="Name on card" value={form.nameOnCard} onChange={(e) => set("nameOnCard", e.target.value)} className="h-12 w-full rounded-lg border border-[#d0d0d0] bg-white px-3 text-[13px] text-[#222] outline-none placeholder:text-[#bbb] focus:border-[#2563EB]" />
+                    {/* Billing checkbox */}
+                    <label className="mt-1 flex cursor-pointer items-center gap-2.5 text-[13px] text-[#444]">
+                      <input type="checkbox" checked={!!form.billingAddress} onChange={(e) => set("billingAddress", e.target.checked)} className="h-4 w-4 cursor-pointer rounded accent-[#2563EB]" />
+                      Use shipping address as billing address
+                    </label>
                   </div>
                 )}
               </div>
@@ -245,16 +269,16 @@ export default function CheckoutPage() {
 
             {/* ── PayPal row ── */}
             <div
-              className={`flex cursor-pointer items-center justify-between px-4 py-3 ${
-                form.payment === "paypal" ? "border-t border-[#2563EB] bg-[#f0f5ff]" : "border-t border-[#e5e5e5] bg-white"
+              className={`flex cursor-pointer items-center justify-between border-t border-[#e5e5e5] px-4 py-3 ${
+                form.payment === "paypal" ? "bg-[#f0f5ff]" : "bg-white"
               }`}
               onClick={() => set("payment", "paypal")}
             >
-              <label className="flex cursor-pointer items-center gap-2">
-                <input type="radio" name="payment" checked={form.payment === "paypal"} onChange={() => set("payment", "paypal")} className="accent-[#2563EB]" />
-                <span className="text-[13px] text-[#1a1a1a]">PayPal</span>
+              <label className="flex cursor-pointer items-center gap-2.5">
+                <input type="radio" name="payment" checked={form.payment === "paypal"} onChange={() => set("payment", "paypal")} className="h-4 w-4 accent-[#2563EB]" />
+                <span className="text-[14px] font-medium text-[#1a1a1a]">PayPal</span>
               </label>
-              <span className="text-[14px] font-bold italic">
+              <span className="text-[15px] font-bold italic">
                 <span className="text-[#003087]">Pay</span><span className="text-[#009cde]">Pal</span>
               </span>
             </div>
@@ -363,10 +387,14 @@ export default function CheckoutPage() {
             </div>
           </div>
 
-          {/* Pay now — only shown for PayPal (card has its own submit inside Stripe form) */}
-          {form.payment === "paypal" && (
-            <button className="mb-6 flex h-12 w-full items-center justify-center rounded-lg bg-[#2563EB] text-[14px] font-semibold text-white transition hover:bg-[#1d4ed8]">
+          {/* Pay button — always visible, changes based on payment method */}
+          {form.payment === "card" ? (
+            <button className="mb-6 flex h-12 w-full items-center justify-center rounded-lg bg-[#2563EB] text-[15px] font-semibold text-white transition hover:bg-[#1d4ed8]">
               Pay now
+            </button>
+          ) : (
+            <button className="mb-6 flex h-12 w-full items-center justify-center gap-1.5 rounded-lg bg-[#0070ba] text-[15px] font-medium text-white transition hover:bg-[#005ea6]">
+              Pay with <span className="font-bold italic">PayPal</span>
             </button>
           )}
 

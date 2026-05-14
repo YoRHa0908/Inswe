@@ -46,17 +46,17 @@ export default function AccountHeader({ active }: Props) {
           </nav>
         </div>
 
-        <button
-          onClick={handleSignOut}
+        <Link
+          href="/account/addresses"
           className="flex h-[30px] w-[30px] shrink-0 items-center justify-center rounded-full border-2 border-[#5A31F4] bg-[#ede9ff] transition hover:opacity-80"
-          aria-label="Sign out"
-          title="Sign out"
+          aria-label="Go to profile"
+          title="Profile"
         >
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#5A31F4" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <circle cx="12" cy="8" r="4" />
             <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" />
           </svg>
-        </button>
+        </Link>
       </div>
     </header>
   );
