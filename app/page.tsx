@@ -7,7 +7,7 @@ import Footer from '@/components/Footer';
 
 export default function HomePage() {
   return (
-    <main className="w-full overflow-x-hidden bg-white">
+    <main className="w-full overflow-x-hidden bg-white dark:bg-[#0f0f0f]">
       <Header />
       <Hero />
 

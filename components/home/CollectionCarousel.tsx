@@ -16,8 +16,8 @@ const products = [
 
 export default function CollectionCarousel() {
   return (
-    <section className="bg-white py-14">
-      <div className="mx-auto max-w-[1450px] px-10">
+    <section className="bg-white py-10 sm:py-14">
+      <div className="mx-auto max-w-[1450px] px-4 sm:px-6 lg:px-10">
 
         {/* Header row */}
         <div className="mb-8 flex items-end justify-between">
@@ -33,12 +33,12 @@ export default function CollectionCarousel() {
         </div>
 
         {/* Scrollable product row */}
-        <div className="flex gap-5 overflow-x-auto pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+        <div className="flex gap-4 overflow-x-auto pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           {products.map((product) => (
             <Link
               key={product.id}
               href={`/shop/${product.id}`}
-              className="group min-w-[220px] flex-shrink-0"
+              className="group min-w-[160px] flex-shrink-0 sm:min-w-[200px] md:min-w-[220px]"
             >
               {/* Image */}
               <div className="relative aspect-[1/1.15] w-full overflow-hidden rounded-lg bg-[#f3f3f3]">

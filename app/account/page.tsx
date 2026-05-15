@@ -7,7 +7,7 @@ export default function OrdersPage() {
       <AccountHeader active="orders" />
 
       {/* ── MAIN ── */}
-      <main className="mx-auto w-3/5 flex-1 px-6 py-8">
+      <main className="mx-auto w-full max-w-[900px] flex-1 px-4 py-8 sm:px-6">
         <h1 className="mb-5 text-[21px] font-semibold tracking-[-0.02em] text-[#1a1a1a]">
           Orders
         </h1>
@@ -23,7 +23,7 @@ export default function OrdersPage() {
 
       {/* ── FOOTER ── */}
       <footer className="shrink-0 border-t border-[#e5e5e5] py-5">
-        <div className="mx-auto flex w-3/5 items-center justify-center gap-5 px-6">
+        <div className="mx-auto flex w-full max-w-[900px] flex-wrap items-center justify-center gap-3 px-4 sm:gap-5 sm:px-6">
           <Link href="/refund-policy" className="text-[11px] text-[#aaa] no-underline transition hover:text-[#555]">
             Refund policy
           </Link>

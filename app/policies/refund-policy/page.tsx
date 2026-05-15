@@ -39,9 +39,9 @@ export default function RefundPolicyPage() {
     <main className="flex min-h-screen flex-col bg-white">
       <Header />
 
-      <div className="mx-auto flex-1 max-w-[720px] px-6 py-16">
+      <div className="mx-auto flex-1 max-w-[720px] px-4 py-10 sm:px-6 sm:py-16">
         {/* Page title */}
-        <h1 className="mb-12 text-center text-[48px] font-bold leading-tight tracking-[-0.02em] text-[#1a1a1a]">
+        <h1 className="mb-8 text-center text-[32px] font-bold leading-tight tracking-[-0.02em] text-[#1a1a1a] sm:mb-12 sm:text-[48px]">
           Refund policy
         </h1>
 

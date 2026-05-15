@@ -7,9 +7,9 @@ export default function ContactPage() {
     <main className="flex min-h-screen flex-col bg-white">
       <Header />
 
-      <section className="mx-auto flex-1 w-full max-w-[560px] px-6 py-20">
+      <section className="mx-auto flex-1 w-full max-w-[560px] px-4 py-14 sm:px-6 sm:py-20">
         {/* Heading */}
-        <h1 className="mb-2 text-center text-[42px] font-semibold tracking-[-0.03em] text-[#1a1a1a]">
+        <h1 className="mb-2 text-center text-[32px] font-semibold tracking-[-0.03em] text-[#1a1a1a] sm:text-[42px]">
           Contact
         </h1>
         <p className="mb-10 text-center text-[15px] text-[#888]">

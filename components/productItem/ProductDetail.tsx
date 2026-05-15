@@ -58,7 +58,7 @@ export default function ProductDetail({ product }: ProductDetailProps) {
 
   return (
     <>
-    <section className="mx-auto max-w-[1200px] px-6 py-10 lg:px-10">
+    <section className="mx-auto max-w-[1200px] px-4 py-8 sm:px-6 lg:px-10">
       <div className="flex flex-col gap-10 lg:flex-row lg:gap-16">
 
         {/* ── LEFT: IMAGE GALLERY ── */}
@@ -98,13 +98,13 @@ export default function ProductDetail({ product }: ProductDetailProps) {
           </div>
 
           {/* Thumbnail strip */}
-          <div className="flex gap-3">
+          <div className="flex gap-2 overflow-x-auto pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:gap-3">
             {product.images.map((src, i) => (
               <button
                 key={i}
                 onClick={() => setActiveIndex(i)}
                 aria-label={`View image ${i + 1}`}
-                className={`relative h-[80px] w-[80px] flex-shrink-0 overflow-hidden bg-[#f3f3f3] transition ${
+                className={`relative h-[64px] w-[64px] flex-shrink-0 overflow-hidden bg-[#f3f3f3] transition sm:h-[80px] sm:w-[80px] ${
                   i === activeIndex
                     ? "ring-2 ring-[#222]"
                     : "opacity-60 hover:opacity-100"
@@ -198,7 +198,7 @@ export default function ProductDetail({ product }: ProductDetailProps) {
     </section>
 
       {/* ── YOU MAY ALSO LIKE ── */}
-      <section className="mx-auto max-w-[1200px] px-6 pb-16 lg:px-10">
+      <section className="mx-auto max-w-[1200px] px-4 pb-12 sm:px-6 lg:px-10 lg:pb-16">
         {/* Divider */}
         <hr className="mb-8 border-[#e5e5e5]" />
 
@@ -206,7 +206,7 @@ export default function ProductDetail({ product }: ProductDetailProps) {
           You may also like
         </h2>
 
-        <div className="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-4">
+        <div className="grid grid-cols-2 gap-x-3 gap-y-6 sm:grid-cols-3 lg:grid-cols-4">
           {related.map((item) => (
             <Link
               key={item.id}

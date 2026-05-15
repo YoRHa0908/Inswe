@@ -142,7 +142,7 @@ function LoginForm() {
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-[#f5f5f5] px-4">
 
-      <div className="w-full max-w-[450px] rounded-2xl border border-[#e5e5e5] bg-white px-10 py-10">
+      <div className="w-full max-w-[450px] rounded-2xl border border-[#e5e5e5] bg-white px-5 py-7 sm:px-10 sm:py-10">
 
         {/* Brand */}
         <p className="mb-8 text-center text-[28px] font-bold tracking-[-0.03em] text-[#1a1a1a]">
@@ -236,7 +236,7 @@ function LoginForm() {
 
             <form onSubmit={handleVerifyOtp} className="flex flex-col gap-5">
               {/* 6 digit boxes */}
-              <div className="flex justify-between gap-2" onPaste={handleOtpPaste}>
+              <div className="flex justify-between gap-1.5 sm:gap-2" onPaste={handleOtpPaste}>
                 {otp.map((digit, i) => (
                   <input
                     key={i}
@@ -247,7 +247,7 @@ function LoginForm() {
                     value={digit}
                     onChange={(e) => handleOtpChange(i, e.target.value)}
                     onKeyDown={(e) => handleOtpKeyDown(i, e)}
-                    className={`h-14 w-full rounded-xl border-2 bg-white text-center text-[22px] font-semibold text-[#1a1a1a] outline-none transition ${
+                    className={`h-11 w-full rounded-xl border-2 bg-white text-center text-[18px] font-semibold text-[#1a1a1a] outline-none transition sm:h-14 sm:text-[22px] ${
                       digit ? "border-[#2563EB]" : "border-[#d0d0d0] focus:border-[#2563EB]"
                     }`}
                   />

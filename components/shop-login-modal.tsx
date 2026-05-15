@@ -15,7 +15,7 @@ export default function ShopLoginModal({
 
   return (
     <div className="fixed inset-0 z-[999] flex items-center justify-center bg-black/40 px-4">
-      <div className="relative w-full max-w-[380px] rounded-[22px] bg-white px-6 pb-8 pt-6">
+      <div className="relative w-full max-w-[380px] rounded-[22px] bg-white px-5 pb-7 pt-5 sm:px-6 sm:pb-8 sm:pt-6">
         
         {/* CLOSE */}
         <button

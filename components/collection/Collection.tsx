@@ -17,7 +17,7 @@ const campaignImages = [
 export default function Collection() {
   return (
     <main className="bg-white">
-      <section className="px-5 pb-24 pt-12 md:px-10">
+        <section className="px-4 pb-16 pt-8 sm:px-6 md:px-10 md:pb-24 md:pt-12">
         
         {/* CONTAINER */}
         <div className="mx-auto max-w-[700px]">

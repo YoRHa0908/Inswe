@@ -119,7 +119,7 @@ export default function ShopLoginPage() {
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-[#f5f5f5] px-4">
-      <div className="w-full max-w-[400px] rounded-2xl border border-[#e5e5e5] bg-white px-8 py-10 shadow-lg">
+      <div className="w-full max-w-[400px] rounded-2xl border border-[#e5e5e5] bg-white px-6 py-8 shadow-lg sm:px-8 sm:py-10">
 
         {/* Brand */}
         <div className="mb-6 flex items-center justify-center gap-2">

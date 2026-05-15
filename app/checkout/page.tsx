@@ -72,7 +72,7 @@ export default function CheckoutPage() {
 
       {/* ── HEADER ── */}
       <header className="fixed top-0 z-50 w-full border-b border-[#e5e5e5] bg-white dark:border-[#2a2a2a] dark:bg-[#111]">
-        <div className="mx-auto flex h-14 max-w-[1100px] items-center justify-between px-6">
+        <div className="mx-auto flex h-14 max-w-[1100px] items-center justify-between px-4 sm:px-6">
           {/* Logo — left aligned */}
           <Link href="/" className="text-[17px] font-semibold tracking-[-0.03em] text-[#1a1a1a] dark:text-white">
             Inswè
@@ -92,10 +92,10 @@ export default function CheckoutPage() {
       <div className="h-14" />
 
       {/* ── BODY ── */}
-      <div className="mx-auto flex w-full max-w-[1100px] flex-1 gap-0">
+      <div className="mx-auto flex w-full max-w-[1100px] flex-1 flex-col gap-0 lg:flex-row">
 
         {/* ── LEFT: FORM ── */}
-        <div className="flex-1 px-6 py-8 pr-12">
+        <div className="flex-1 px-4 py-6 sm:px-6 sm:py-8 lg:pr-12">
 
           {/* Express checkout */}
           <p className="mb-3 text-center text-[12px] text-[#888]">Express checkout</p>
@@ -413,7 +413,7 @@ export default function CheckoutPage() {
         </div>
 
         {/* ── RIGHT: ORDER SUMMARY ── */}
-        <div className="w-[380px] shrink-0 border-l border-[#e5e5e5] bg-[#f9f9f9] px-6 py-8">
+        <div className="w-full border-t border-[#e5e5e5] bg-[#f9f9f9] px-4 py-6 sm:px-6 lg:w-[380px] lg:shrink-0 lg:border-l lg:border-t-0 lg:py-8">
 
           {/* Items */}
           <div className="mb-5 flex flex-col gap-4">

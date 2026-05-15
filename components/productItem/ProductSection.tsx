@@ -126,7 +126,7 @@ export default function ProductSection() {
   const [filteredProducts, setFilteredProducts] = useState<Product[]>(products);
 
   return (
-    <section className="max-w-[1450px] mx-auto px-10 py-10">
+    <section className="max-w-[1450px] mx-auto px-4 py-8 sm:px-6 lg:px-10">
       {/* FILTER TOP */}
       <ShopFilter
         products={products}
@@ -139,8 +139,10 @@ export default function ProductSection() {
 
       {/* PRODUCTS */}
       <div
-        className={`grid gap-x-4 gap-y-10 ${
-          view === "default" ? "grid-cols-4" : "grid-cols-8"
+        className={`grid gap-x-3 gap-y-8 ${
+          view === "default"
+            ? "grid-cols-2 sm:grid-cols-3 lg:grid-cols-4"
+            : "grid-cols-3 sm:grid-cols-4 lg:grid-cols-8"
         }`}
       >
         {filteredProducts.map((product) => (

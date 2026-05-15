@@ -21,7 +21,7 @@ export default function VideoHero({
   images,
 }: Props) {
   return (
-    <section className={`relative w-full flex items-center justify-center text-white ${images ? "aspect-[16/9]" : "min-h-[70vh]"}`}>
+    <section className={`relative w-full flex items-center justify-center text-white ${images ? "aspect-[4/3] sm:aspect-[16/9]" : "min-h-[50vh] sm:min-h-[70vh]"}`}>
       {/* Background */}
       <div className="absolute inset-0">
         {videoSrc ? (
@@ -51,18 +51,18 @@ export default function VideoHero({
       </div>
 
       {/* Content */}
-      <div className="relative z-10 text-center px-6">
-        <h2 className="text-3xl md:text-5xl font-semibold">{title}</h2>
+      <div className="relative z-10 text-center px-4 sm:px-6">
+        <h2 className="text-2xl font-semibold sm:text-3xl md:text-5xl">{title}</h2>
 
         {subtitle && (
-          <p className="mt-4 text-sm md:text-base text-white/80">
+          <p className="mt-3 text-sm md:text-base text-white/80 max-w-[560px] mx-auto">
             {subtitle}
           </p>
         )}
 
         <Link
           href={buttonHref}
-          className="inline-block mt-6 px-6 py-3 bg-white text-black rounded-full hover:bg-gray-200 transition"
+          className="inline-block mt-6 px-6 py-3 bg-white text-black rounded-full text-sm hover:bg-gray-200 transition"
         >
           {buttonText}
         </Link>

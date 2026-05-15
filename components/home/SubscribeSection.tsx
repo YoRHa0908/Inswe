@@ -1,24 +1,24 @@
 
 export default function SubscribeSection() {
   return (
-    <section className="bg-gray-100 py-20">
-      <div className="max-w-xl mx-auto text-center px-4">
-        <h2 className="text-2xl font-semibold">
+    <section className="bg-gray-100 py-16 sm:py-20">
+      <div className="mx-auto max-w-xl px-4 text-center sm:px-6">
+        <h2 className="text-xl font-semibold sm:text-2xl">
           Subscribe to our emails
         </h2>
 
-        <p className="mt-2 text-gray-600">
+        <p className="mt-2 text-gray-600 text-[14px] sm:text-[15px]">
           Be the first to know about new collections and special offers.
         </p>
 
-        <form className="mt-6 flex">
+        <form className="mt-6 flex flex-col gap-2 sm:flex-row">
           <input
             type="email"
             placeholder="Email address"
-            className="flex-1 px-4 py-3 rounded-l-full border border-gray-300 focus:outline-none"
+            className="flex-1 rounded-full border border-gray-300 px-4 py-3 text-[14px] focus:outline-none sm:rounded-r-none sm:rounded-l-full"
           />
           <button
-            className="px-6 bg-black text-white rounded-r-full hover:bg-gray-800"
+            className="rounded-full bg-black px-6 py-3 text-white transition hover:bg-gray-800 sm:rounded-l-none sm:rounded-r-full"
             type="submit"
           >
             →

@@ -181,7 +181,7 @@ export default function ProfilePage() {
     <div className="flex min-h-screen flex-col bg-[#f7f7f7]">
       <AccountHeader active="profile" />
 
-      <main className="mx-auto w-3/5 flex-1 px-6 py-8">
+      <main className="mx-auto w-full max-w-[900px] flex-1 px-4 py-8 sm:px-6">
         <h1 className="mb-5 text-[21px] font-semibold tracking-[-0.02em] text-[#1a1a1a]">Profile</h1>
 
         {/* NAME + EMAIL CARD */}
@@ -276,7 +276,7 @@ export default function ProfilePage() {
 
       {/* FOOTER */}
       <footer className="shrink-0 border-t border-[#e5e5e5] py-5">
-        <div className="mx-auto flex w-3/5 items-center justify-center gap-5 px-6">
+        <div className="mx-auto flex w-full max-w-[900px] flex-wrap items-center justify-center gap-3 px-4 sm:gap-5 sm:px-6">
           <Link href="/policies/refund-policy" className="text-[11px] text-[#aaa] no-underline transition hover:text-[#555]">Refund policy</Link>
           <Link href="/policies/privacy-policy" className="text-[11px] text-[#aaa] no-underline transition hover:text-[#555]">Privacy policy</Link>
           <Link href="/policies/terms-of-service" className="text-[11px] text-[#aaa] no-underline transition hover:text-[#555]">Terms of service</Link>
@@ -287,7 +287,7 @@ export default function ProfilePage() {
       {modalOpen && (
         <>
           <div onClick={handleCancel} className="fixed inset-0 z-40 bg-[rgba(80,80,80,0.5)] backdrop-blur-sm" />
-          <div className="fixed left-1/2 top-1/2 z-50 w-1/3 -translate-x-1/2 -translate-y-1/2 rounded-[15px] bg-white px-6 pb-5 pt-5 shadow-[0_4px_24px_rgba(0,0,0,0.14)]">
+          <div className="fixed left-1/2 top-1/2 z-50 w-[min(400px,92vw)] -translate-x-1/2 -translate-y-1/2 rounded-[15px] bg-white px-6 pb-5 pt-5 shadow-[0_4px_24px_rgba(0,0,0,0.14)]">
             <div className="mb-5 flex items-center justify-between">
               <span className="text-[15px] font-semibold text-[#1a1a1a]">Edit profile</span>
               <button onClick={handleCancel} type="button" className="flex cursor-pointer items-center border-none bg-transparent p-0 text-[#aaa] transition hover:text-[#555]"><X size={17} strokeWidth={1.8} /></button>
@@ -313,7 +313,7 @@ export default function ProfilePage() {
       {addrOpen && (
         <>
           <div onClick={handleAddrCancel} className="fixed inset-0 z-40 bg-[rgba(80,80,80,0.5)] backdrop-blur-sm" />
-          <div className="fixed left-1/2 top-1/2 z-50 w-1/3 -translate-x-1/2 -translate-y-1/2 rounded-2xl bg-white px-6 pb-6 pt-5 shadow-[0_8px_32px_rgba(0,0,0,0.18)]">
+          <div className="fixed left-1/2 top-1/2 z-50 w-[min(480px,94vw)] -translate-x-1/2 -translate-y-1/2 max-h-[90vh] overflow-y-auto rounded-2xl bg-white px-6 pb-6 pt-5 shadow-[0_8px_32px_rgba(0,0,0,0.18)]">
             <div className="mb-5 flex items-center justify-between">
               <span className="text-[16px] font-semibold text-[#1a1a1a]">{editingAddr ? "Edit address" : "Add address"}</span>
               <button onClick={handleAddrCancel} type="button" className="flex cursor-pointer items-center border-none bg-transparent p-0 text-[#aaa] transition hover:text-[#555]"><X size={18} strokeWidth={1.8} /></button>

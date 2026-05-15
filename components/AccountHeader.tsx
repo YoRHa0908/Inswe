@@ -17,7 +17,7 @@ export default function AccountHeader({ active }: Props) {
 
   return (
     <header className="shrink-0 border-b border-[#e8e8e8] bg-white">
-      <div className="mx-auto flex h-12 w-3/5 items-center justify-between px-6">
+      <div className="mx-auto flex h-12 w-full max-w-[900px] items-center justify-between px-4 sm:px-6">
         <div className="flex items-center gap-6">
           <Link href="/" className="text-[15px] font-semibold tracking-[-0.03em] text-[#1a1a1a] no-underline">
             Inswè

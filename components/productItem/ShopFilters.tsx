@@ -114,7 +114,7 @@ export default function ShopFilters({
     }, [availability, products, setFilteredProducts]);
 
     return (
-        <div className="mb-10 flex items-center justify-between text-[14px]">
+        <div className="mb-10 flex flex-wrap items-center justify-between gap-4 text-[14px]">
             {/* LEFT */}
             <div className="flex items-center gap-8">
                 {/* AVAILABILITY */}
@@ -237,7 +237,7 @@ export default function ShopFilters({
                     </button>
 
                     {priceOpen && (
-                        <div className="absolute left-0 top-10 z-50 w-[360px] rounded-2xl bg-white p-5 shadow-2xl">
+                        <div className="absolute left-0 top-10 z-50 w-[min(360px,90vw)] rounded-2xl bg-white p-5 shadow-2xl">
                             <div className="flex items-center gap-3">
                                 <div className="flex flex-1 items-center rounded-xl border border-[#e0e0e0] bg-white px-4 py-3">
                                     <span className="mr-3 text-[15px] text-[#aaa]">£</span>
@@ -319,7 +319,7 @@ export default function ShopFilters({
                     </button>
 
                     {sortOpen && (
-                        <div className="absolute right-0 top-10 z-50 w-[280px] rounded-xl bg-white p-2 shadow-xl">
+                        <div className="absolute right-0 top-10 z-50 w-[min(280px,90vw)] rounded-xl bg-white p-2 shadow-xl">
                             {sortOptions.map((option) => (
                                 <label
                                     key={option.value}

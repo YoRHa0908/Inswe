@@ -52,7 +52,7 @@ export default function CartPage() {
       <Header />
       <div className="flex-1">
 
-      <div className="mx-auto max-w-[1200px] px-6 py-8">
+      <div className="mx-auto max-w-[1200px] px-4 py-6 sm:px-6 sm:py-8">
 
         {/* ── CART TITLE ── */}
         <div className="mb-6 flex items-center gap-2">
@@ -62,7 +62,7 @@ export default function CartPage() {
           </span>
         </div>
 
-        <div className="flex gap-8">
+        <div className="flex flex-col gap-8 lg:flex-row">
 
           {/* ── LEFT: ITEMS ── */}
           <div className="flex-1">
@@ -76,51 +76,31 @@ export default function CartPage() {
             ) : (
               <div className="divide-y divide-[#f0f0f0]">
                 {items.map((item) => (
-                  <div key={item.id} className="flex items-center gap-4 py-5">
+                  <div key={item.id} className="flex flex-wrap items-center gap-3 py-5 sm:flex-nowrap sm:gap-4">
                     {/* Image */}
-                    <div className="relative h-[80px] w-[80px] shrink-0 overflow-hidden rounded-md bg-[#f3f3f3]">
-                      <Image
-                        src={item.image}
-                        alt={item.name}
-                        fill
-                        className="object-cover"
-                        sizes="80px"
-                      />
+                    <div className="relative h-[70px] w-[70px] shrink-0 overflow-hidden rounded-md bg-[#f3f3f3] sm:h-[80px] sm:w-[80px]">
+                      <Image src={item.image} alt={item.name} fill className="object-cover" sizes="80px" />
                     </div>
 
                     {/* Name + price */}
-                    <div className="flex-1">
-                      <p className="text-[14px] font-medium text-[#1a1a1a]">{item.name}</p>
+                    <div className="min-w-0 flex-1">
+                      <p className="truncate text-[14px] font-medium text-[#1a1a1a]">{item.name}</p>
                       <p className="mt-0.5 text-[13px] text-[#888]">£{item.price.toFixed(2)}</p>
                     </div>
 
                     {/* Qty stepper */}
                     <div className="flex items-center gap-2 rounded-full border border-[#e0e0e0] px-2 py-1">
-                      <button
-                        onClick={() => updateQty(item.id, -1)}
-                        aria-label="Decrease"
-                        className="flex h-5 w-5 items-center justify-center text-[#555] transition hover:text-[#1a1a1a]"
-                      >
+                      <button onClick={() => updateQty(item.id, -1)} aria-label="Decrease" className="flex h-5 w-5 items-center justify-center text-[#555] transition hover:text-[#1a1a1a]">
                         <Minus size={12} strokeWidth={2} />
                       </button>
-                      <span className="w-5 text-center text-[13px] font-medium text-[#1a1a1a]">
-                        {item.quantity}
-                      </span>
-                      <button
-                        onClick={() => updateQty(item.id, 1)}
-                        aria-label="Increase"
-                        className="flex h-5 w-5 items-center justify-center text-[#555] transition hover:text-[#1a1a1a]"
-                      >
+                      <span className="w-5 text-center text-[13px] font-medium text-[#1a1a1a]">{item.quantity}</span>
+                      <button onClick={() => updateQty(item.id, 1)} aria-label="Increase" className="flex h-5 w-5 items-center justify-center text-[#555] transition hover:text-[#1a1a1a]">
                         <Plus size={12} strokeWidth={2} />
                       </button>
                     </div>
 
                     {/* Delete */}
-                    <button
-                      onClick={() => removeItem(item.id)}
-                      aria-label="Remove"
-                      className="text-[#aaa] transition hover:text-[#e55]"
-                    >
+                    <button onClick={() => removeItem(item.id)} aria-label="Remove" className="text-[#aaa] transition hover:text-[#e55]">
                       <Trash2 size={16} strokeWidth={1.8} />
                     </button>
 
@@ -135,7 +115,7 @@ export default function CartPage() {
           </div>
 
           {/* ── RIGHT: SUMMARY ── */}
-          <div className="w-[280px] shrink-0">
+          <div className="w-full lg:w-[280px] lg:shrink-0">
             <div className="sticky top-24 rounded-xl border border-[#e5e5e5] bg-[#fafafa] p-5">
 
               {/* Discount */}
@@ -204,7 +184,7 @@ export default function CartPage() {
             </Link>
           </div>
 
-          <div className="grid grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
             {relatedProducts.map((product) => (
               <ProductCard key={product.id} product={product} view="default" />
             ))}
