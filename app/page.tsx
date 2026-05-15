@@ -24,7 +24,7 @@ export default function HomePage() {
       <VideoHero
         title="DISCOVER INSWÈ CAMPAIGN SZN 1"
         buttonText="SEE NOW"
-        buttonHref="/collection"
+        buttonHref="/shop"
         images={
           "/assets/images/campaign-7.jpg"
         }
