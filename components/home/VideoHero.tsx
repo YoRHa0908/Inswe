@@ -1,3 +1,6 @@
+"use client";
+
+import { useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -20,13 +23,58 @@ export default function VideoHero({
   poster,
   images,
 }: Props) {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    // Force play on mount
+    const tryPlay = () => {
+      video.play().catch(() => {});
+    };
+
+    tryPlay();
+
+    // Resume whenever it pauses (browser may pause it on tab switch, scroll, etc.)
+    const handlePause = () => {
+      // Small delay to avoid fighting with intentional pauses
+      setTimeout(() => {
+        if (video.paused && !video.ended) {
+          video.play().catch(() => {});
+        }
+      }, 200);
+    };
+
+    // Resume when tab becomes visible again
+    const handleVisibility = () => {
+      if (!document.hidden && video.paused) {
+        video.play().catch(() => {});
+      }
+    };
+
+    // Resume when page regains focus
+    const handleFocus = () => {
+      if (video.paused) video.play().catch(() => {});
+    };
+
+    video.addEventListener("pause", handlePause);
+    document.addEventListener("visibilitychange", handleVisibility);
+    window.addEventListener("focus", handleFocus);
+
+    return () => {
+      video.removeEventListener("pause", handlePause);
+      document.removeEventListener("visibilitychange", handleVisibility);
+      window.removeEventListener("focus", handleFocus);
+    };
+  }, [videoSrc]);
+
   return (
     <section className="relative w-full text-white">
-      {/* Media container — natural aspect ratio so full content is always visible */}
       <div className="relative w-full bg-black">
         {videoSrc ? (
-          /* Video: let it define its own height naturally */
           <video
+            ref={videoRef}
             className="w-full h-auto block"
             autoPlay
             muted
@@ -38,7 +86,6 @@ export default function VideoHero({
             <source src={videoSrc} type="video/mp4" />
           </video>
         ) : images ? (
-          /* Image: use natural aspect ratio via width/height auto */
           <div className="relative w-full aspect-[3/4] sm:aspect-[4/3] md:aspect-[16/9]">
             <Image
               src={images}

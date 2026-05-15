@@ -8,8 +8,23 @@ export default function IntroVideo() {
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
-    // Auto-play as soon as component mounts
-    videoRef.current?.play().catch(() => {});
+    const video = videoRef.current;
+    if (!video) return;
+
+    const tryPlay = () => video.play().catch(() => {});
+    tryPlay();
+
+    // Resume when tab becomes visible
+    const handleVisibility = () => { if (!document.hidden) tryPlay(); };
+    document.addEventListener("visibilitychange", handleVisibility);
+
+    // Resume if paused unexpectedly
+    video.addEventListener("pause", tryPlay);
+
+    return () => {
+      document.removeEventListener("visibilitychange", handleVisibility);
+      video.removeEventListener("pause", tryPlay);
+    };
   }, []);
 
   const dismiss = () => {
