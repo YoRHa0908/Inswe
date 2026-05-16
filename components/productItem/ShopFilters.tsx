@@ -67,15 +67,82 @@ export default function ShopFilters({
         return () => document.removeEventListener("mousedown", handleClickOutside);
     }, []);
 
+    // Helper function to apply all filters and sorting
+    const applyAllFilters = () => {
+        let filtered = [...products];
+        
+        // 1. Apply availability filter
+        if (availability.inStock && !availability.outOfStock) {
+            filtered = filtered.filter((p) => p.inStock);
+        }
+        if (!availability.inStock && availability.outOfStock) {
+            filtered = filtered.filter((p) => !p.inStock);
+        }
+        
+        // 2. Apply price filter
+        const MAX_PRICE = Math.max(...products.map((p) => p.price));
+        const min = minPrice === "" ? 0 : Math.min(Number(minPrice), MAX_PRICE);
+        const max = maxPrice === "" ? MAX_PRICE : Math.min(Number(maxPrice), MAX_PRICE);
+        
+        if (min > 0 || max < MAX_PRICE) {
+            filtered = filtered.filter(
+                (product) => product.price >= min && product.price <= max
+            );
+        }
+        
+        // 3. Apply sorting
+        if (sort === "manual") {
+            // Featured/Manual order - show featured products first, then others
+            filtered.sort((a, b) => {
+                const aFeatured = a.isFeatured ? 1 : 0;
+                const bFeatured = b.isFeatured ? 1 : 0;
+                if (aFeatured !== bFeatured) return bFeatured - aFeatured;
+                return a.id - b.id; // Fallback to ID order
+            });
+        } else if (sort === "title-ascending") {
+            filtered.sort((a, b) => a.name.localeCompare(b.name));
+        } else if (sort === "title-descending") {
+            filtered.sort((a, b) => b.name.localeCompare(a.name));
+        } else if (sort === "price-ascending") {
+            filtered.sort((a, b) => a.price - b.price);
+        } else if (sort === "price-descending") {
+            filtered.sort((a, b) => b.price - a.price);
+        } else if (sort === "most-relevant") {
+            // For "most relevant", we could use a combination of factors
+            // For now, let's use featured + alphabetical
+            filtered.sort((a, b) => {
+                const aFeatured = a.isFeatured ? 1 : 0;
+                const bFeatured = b.isFeatured ? 1 : 0;
+                if (aFeatured !== bFeatured) return bFeatured - aFeatured;
+                return a.name.localeCompare(b.name);
+            });
+        } else if (sort === "best-selling") {
+            // Since we don't have sales data, sort by featured + price (higher price first as proxy)
+            filtered.sort((a, b) => {
+                const aFeatured = a.isFeatured ? 1 : 0;
+                const bFeatured = b.isFeatured ? 1 : 0;
+                if (aFeatured !== bFeatured) return bFeatured - aFeatured;
+                return b.price - a.price;
+            });
+        } else if (sort === "created-ascending") {
+            // Oldest first - sort by ID (assuming lower ID = older)
+            filtered.sort((a, b) => a.id - b.id);
+        } else if (sort === "created-descending") {
+            // Newest first - sort by ID descending (assuming higher ID = newer)
+            filtered.sort((a, b) => b.id - a.id);
+        }
+        
+        setFilteredProducts(filtered);
+    };
+
+    // Apply filters whenever sort, availability, or price range changes
+    useEffect(() => {
+        applyAllFilters();
+    }, [sort, availability, minPrice, maxPrice, products]);
+
     // SORT
     const handleSort = (value: string) => {
         setSort(value);
-        const copied = [...products];
-        if (value === "title-ascending") copied.sort((a, b) => a.name.localeCompare(b.name));
-        if (value === "title-descending") copied.sort((a, b) => b.name.localeCompare(a.name));
-        if (value === "price-ascending") copied.sort((a, b) => a.price - b.price);
-        if (value === "price-descending") copied.sort((a, b) => b.price - a.price);
-        setFilteredProducts(copied);
         setSortOpen(false);
     };
 
@@ -90,28 +157,12 @@ export default function ShopFilters({
         const clampedMin = String(min === 0 ? "" : min);
         const clampedMax = String(max === MAX_PRICE && maxPrice === "" ? "" : max);
         setMinPrice(clampedMin);
-        setMaxPrice(String(max));
-
-        const filtered = products.filter(
-            (product) => product.price >= min && product.price <= max
-        );
-        setFilteredProducts(filtered);
+        setMaxPrice(clampedMax);
         setAppliedMin(clampedMin);
-        setAppliedMax(String(max));
+        setAppliedMax(clampedMax);
         setPriceOpen(false);
+        // applyAllFilters will be triggered by useEffect when minPrice/maxPrice change
     };
-
-    // AVAILABILITY FILTER
-    useEffect(() => {
-        let filtered = [...products];
-        if (availability.inStock && !availability.outOfStock) {
-            filtered = filtered.filter((p) => p.inStock);
-        }
-        if (!availability.inStock && availability.outOfStock) {
-            filtered = filtered.filter((p) => !p.inStock);
-        }
-        setFilteredProducts(filtered);
-    }, [availability, products, setFilteredProducts]);
 
     return (
         <div className="mb-10 flex flex-wrap items-center justify-between gap-4 text-[14px]">
@@ -295,7 +346,7 @@ export default function ShopFilters({
                                         setMaxPrice("");
                                         setAppliedMin("");
                                         setAppliedMax("");
-                                        setFilteredProducts(products);
+                                        // applyAllFilters will be triggered by useEffect when minPrice/maxPrice change
                                     }}
                                     className="text-[13px] text-[#555] underline underline-offset-2 transition hover:text-black"
                                 >
