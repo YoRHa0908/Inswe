@@ -41,7 +41,7 @@ export const allProducts: Product[] = [
   {
     id: 3,
     name: "Pink zipper cap",
-    price: 79.99,
+    price: 84.99,
     image: "/assets/images/JNSWE_caps_17_pink.jpg",
     images: [
       "/assets/images/JNSWE_caps_17_pink.jpg",
@@ -83,7 +83,7 @@ export const allProducts: Product[] = [
   {
     id: 6,
     name: "Brown zipper cap",
-    price: 84.99,
+    price: 79.99,
     image: "/assets/images/JNSWE_caps_20_brown.jpg",
     images: [
       "/assets/images/JNSWE_caps_20_brown.jpg",
@@ -92,7 +92,6 @@ export const allProducts: Product[] = [
       "/assets/images/JNSWE_caps_20_brown3.jpg",
     ],
     inStock: true,
-    isFeatured: true,
   },
   {
     id: 7,
@@ -120,7 +119,6 @@ export const allProducts: Product[] = [
       "/assets/images/JNSWE_caps_19_blue.jpg",
     ],
     inStock: true,
-    isFeatured: true,
   },
 ];
 
