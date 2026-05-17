@@ -48,7 +48,7 @@ export default function IntroVideo() {
         muted
         loop
         playsInline
-        src="/assets/videos/Caps.mp4"
+        src="/assets/videos/about_bag.mp4"
       />
 
       {/* Click hint */}
