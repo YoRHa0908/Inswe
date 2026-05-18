@@ -22,7 +22,7 @@ export default function HomePage() {
 
       {/* First DISCOVER COLLECTION — caps only */}
       <CollectionCarousel
-        capsOnly={true}
+        capsOnly={false}
         title="DISCOVER COLLECTION"
       />
 

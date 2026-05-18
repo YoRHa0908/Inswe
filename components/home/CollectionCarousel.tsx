@@ -7,7 +7,47 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 
 export const allProducts = [
   {
-    id: 1, name: "Black Cap",        price: 79.99, isCaps: true,
+    id: 1, name: "Modern Bag",        price: 79.99, isCaps: false,
+    image: "/assets/images/PHO00003.JPG",
+    images: [
+      "/assets/images/PHO00003.JPG",
+      "/assets/images/PHO00004.JPG",
+      "/assets/images/PHO00005.JPG",
+      "/assets/images/PHO00006.JPG",
+    ],
+  },
+  {
+    id: 2, name: "Modern Leather Bag",        price: 79.99, isCaps: false,
+    image: "/assets/images/PHO00005.JPG",
+    images: [
+      "/assets/images/PHO00005.JPG",
+      "/assets/images/PHO00006.JPG",
+      "/assets/images/PHO00003.JPG",
+      "/assets/images/PHO00004.JPG",
+    ],
+  },
+  {
+    id: 3, name: "Modern Leather Bag2",        price: 79.99, isCaps: false,
+    image: "/assets/images/PHO00006.JPG",
+    images: [
+      "/assets/images/PHO00006.JPG",
+      "/assets/images/PHO00005.JPG",
+      "/assets/images/PHO00003.JPG",
+      "/assets/images/PHO00004.JPG",
+    ],
+  },
+  {
+    id: 4, name: "Modern Leather Bag2",        price: 79.99, isCaps: false,
+    image: "/assets/images/PHO00004.JPG",
+    images: [
+      "/assets/images/PHO00004.JPG",
+      "/assets/images/PHO00005.JPG",
+      "/assets/images/PHO00003.JPG",
+      "/assets/images/PHO00006.JPG",
+    ],
+  },
+  {
+    id: 5, name: "Black Cap",        price: 79.99, isCaps: true,
     image: "/assets/images/JNSWE_caps_18_black.jpg",
     images: [
       "/assets/images/JNSWE_caps_18_black.jpg",
@@ -17,7 +57,7 @@ export const allProducts = [
     ],
   },
   {
-    id: 2, name: "Pink Cap",         price: 79.99, isCaps: true,
+    id: 6, name: "Pink Cap",         price: 79.99, isCaps: true,
     image: "/assets/images/JNSWE_caps_17_pink.jpg",
     images: [
       "/assets/images/JNSWE_caps_17_pink.jpg",
@@ -27,7 +67,7 @@ export const allProducts = [
     ],
   },
   {
-    id: 3, name: "Blue Cap",         price: 84.99, isCaps: true,
+    id: 7, name: "Blue Cap",         price: 84.99, isCaps: true,
     image: "/assets/images/JNSWE_caps_19_blue.jpg",
     images: [
       "/assets/images/JNSWE_caps_19_blue.jpg",
@@ -37,7 +77,7 @@ export const allProducts = [
     ],
   },
   {
-    id: 4, name: "Brown Cap",        price: 84.99, isCaps: true,
+    id: 8, name: "Brown Cap",        price: 84.99, isCaps: true,
     image: "/assets/images/JNSWE_caps_20_brown.jpg",
     images: [
       "/assets/images/JNSWE_caps_20_brown.jpg",
@@ -47,7 +87,7 @@ export const allProducts = [
     ],
   },
   {
-    id: 5, name: "Back Zip Cap",     price: 84.99, isCaps: true,
+    id: 9, name: "Back Zip Cap",     price: 84.99, isCaps: true,
     image: "/assets/images/JNSWE_caps_21_backzip.jpg",
     images: [
       "/assets/images/JNSWE_caps_21_backzip.jpg",
@@ -57,7 +97,7 @@ export const allProducts = [
     ],
   },
   {
-    id: 6, name: "White Cap",        price: 79.99, isCaps: true,
+    id: 10, name: "White Cap",        price: 79.99, isCaps: true,
     image: "/assets/images/JNSWE_caps_22_white.jpg",
     images: [
       "/assets/images/JNSWE_caps_22_white.jpg",
@@ -74,7 +114,7 @@ type Props = {
 };
 
 export default function CollectionCarousel({ capsOnly = false, title = "DISCOVER COLLECTION" }: Props) {
-  const products = capsOnly ? allProducts.filter((p) => p.isCaps) : allProducts;
+  const products = capsOnly ? allProducts.filter((p) => p.isCaps) : allProducts.filter((p) => !p.isCaps);
 
   const scrollRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);

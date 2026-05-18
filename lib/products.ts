@@ -6,6 +6,7 @@ export type Product = {
   images: string[]; // all 4 images for the hover carousel
   inStock: boolean;
   isFeatured?: boolean; // For featured products in CollectionCarousel
+  isCaps?: boolean; // For featured products in CollectionCarousel
 };
 
 // Main product catalog - includes all products
@@ -94,6 +95,7 @@ export const allProducts: Product[] = [
       "/assets/images/JNSWE_caps_17_pink3.jpg",
     ],
     inStock: true,
+    isCaps:true
   },
   {
     id: 7,
@@ -107,6 +109,7 @@ export const allProducts: Product[] = [
       "/assets/images/JNSWE_caps_18_black3.jpg",
     ],
     inStock: true,
+    isCaps:true
   },
   {
     id: 8,
@@ -120,6 +123,7 @@ export const allProducts: Product[] = [
       "/assets/images/JNSWE_caps_19_blue3.jpg",
     ],
     inStock: true,
+    isCaps:true
   },
   {
     id: 9,
@@ -133,6 +137,7 @@ export const allProducts: Product[] = [
       "/assets/images/JNSWE_caps_20_brown3.jpg",
     ],
     inStock: true,
+    isCaps:true
   },
   {
     id: 10,
@@ -146,6 +151,7 @@ export const allProducts: Product[] = [
       "/assets/images/JNSWE_caps_21_backzip3.jpg",
     ],
     inStock: true,
+    isCaps:true
   },
   {
     id: 11,
@@ -159,6 +165,7 @@ export const allProducts: Product[] = [
       "/assets/images/JNSWE_caps_19_blue.jpg",
     ],
     inStock: true,
+    isCaps:true
   },
 ];
 
