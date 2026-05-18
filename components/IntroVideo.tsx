@@ -48,15 +48,8 @@ export default function IntroVideo() {
         muted
         loop
         playsInline
-        src="/assets/videos/about_bag.mp4"
+        src="/assets/videos/about_bag_home.mp4"
       />
-
-      {/* Logo centered over the video */}
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-        <p className="text-[64px] font-bold tracking-[-0.04em] text-white drop-shadow-[0_2px_16px_rgba(0,0,0,0.6)] sm:text-[96px] md:text-[128px]">
-          Inswè
-        </p>
-      </div>
 
       {/* Click hint */}
       <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/70">
